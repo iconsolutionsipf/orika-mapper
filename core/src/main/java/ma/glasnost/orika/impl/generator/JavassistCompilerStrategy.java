@@ -34,6 +34,7 @@ import javassist.CtField;
 import javassist.CtNewMethod;
 import javassist.LoaderClassPath;
 import javassist.NotFoundException;
+import javassist.bytecode.ClassFile;
 import ma.glasnost.orika.impl.generator.Analysis.Visibility;
 
 import org.slf4j.Logger;
@@ -241,10 +242,12 @@ public class JavassistCompilerStrategy extends CompilerStrategy {
                 
             }
 
-            //this code causes Illegal reflective access in Java 11
-            //compiledClass = byteCodeClass.toClass(Thread.currentThread().getContextClassLoader(), this.getClass().getProtectionDomain());
-
-            compiledClass = byteCodeClass.toClass(sourceCode.getPackageNeighbour());
+            if (ClassFile.MAJOR_VERSION >= ClassFile.JAVA_11) {
+                compiledClass = byteCodeClass.toClass(sourceCode.getPackageNeighbour());
+            } else {
+                //this code causes Illegal reflective access in Java 11
+                compiledClass = byteCodeClass.toClass(Thread.currentThread().getContextClassLoader(), this.getClass().getProtectionDomain());
+            }
 
             writeClassFile(sourceCode, byteCodeClass);
             
