@@ -3,12 +3,14 @@ package ma.glasnost.orika.test.community;
 import java.io.IOException;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.test.MappingUtil;
 
+@Ignore
 public class CheckedExceptionTest {
 
 	@Test

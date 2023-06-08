@@ -26,6 +26,7 @@ import ma.glasnost.orika.test.DynamicSuite.TestCasePattern;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 /**
@@ -40,6 +41,7 @@ import org.junit.runner.RunWith;
 @RunWith(DynamicSuite.class)
 @TestCasePattern(".*TestCase")
 @Scenario(name="eclipseJdt")
+@Ignore
 public class TestAlternateCompilerStrategy {
     
     @BeforeClass

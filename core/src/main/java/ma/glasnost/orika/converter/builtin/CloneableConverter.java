@@ -17,6 +17,7 @@
  */
 package ma.glasnost.orika.converter.builtin;
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
@@ -66,7 +67,7 @@ public class CloneableConverter extends CustomConverter<Object, Object> {
             clone = Object.class.getDeclaredMethod("clone");
             clone.setAccessible(true);
             methodCache = null;
-        } catch (SecurityException e) {
+        } catch (InaccessibleObjectException | SecurityException e) {
             clone = null;
             methodCache = new WeakHashMap<Class<?>, Method>();
         } catch (NoSuchMethodException e) {
