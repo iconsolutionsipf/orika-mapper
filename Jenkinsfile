@@ -1,3 +1,7 @@
+#!/usr/bin/env groovy
+
+@Library(value = 'jenkins-sharedlibraries', changelog = false) _
+
 pipeline {
   agent { label 'build-slave-aws' }
 
