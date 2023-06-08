@@ -3,7 +3,7 @@
   <parent>
     <artifactId>orika-parent</artifactId>
     <groupId>ma.glasnost.orika</groupId>
-    <version>1.5.5</version>
+    <version>1.5.6-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>orika-core</artifactId>
@@ -42,6 +42,16 @@
                   <shadedPattern>orika_shaded.com.googlecode.concurrentlinkedhashmap</shadedPattern>
                 </relocation>
               </relocations>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
