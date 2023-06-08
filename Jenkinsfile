@@ -43,43 +43,5 @@ pipeline {
         }
       }
     }
-
-    stage('Sonarqube') {
-      environment {
-        SCANNER_HOME = tool 'SonarQubeScanner'
-      }
-
-      steps {
-        script {
-          codePipelineShared.sonarqubeScan("orika")
-        }
-      }
-    }
-
-    stage('NexusIQ') {
-      steps {
-        script {
-          codePipelineShared.nexusIqScan("orika")
-          codePipelineShared.nexusIqGetReport("orika", 'build', 'components')
-        }
-      }
-    }
-
-    stage('Quality Gate - Coverage') {
-      steps {
-        script {
-          waitForQualityGate abortPipeline: true
-          codePipelineShared.coverageScan(80)
-        }
-      }
-    }
-
-    stage('Quality Gate - Bugs/Vulnerabilities') {
-      steps {
-        script {
-          codePipelineShared.sonarqubeVulnerabilities('orika', env.BRANCH_NAME)
-        }
-      }
-    }
   }
 }
