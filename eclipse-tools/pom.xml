@@ -80,6 +80,11 @@
 									</excludes>
 								</filter>
 							</filters>
+							<artifactSet>
+								<excludes>
+									<exclude>org.slf4j:slf4j-api</exclude>
+								</excludes>
+							</artifactSet>
 						</configuration>
 					</execution>
 				</executions>
