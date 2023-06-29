@@ -4,7 +4,7 @@
     <groupId>ma.glasnost.orika</groupId>
     <artifactId>orika-parent</artifactId>
     <name>Orika - parent</name>
-    <version>1.5.6</version>
+    <version>1.5.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
