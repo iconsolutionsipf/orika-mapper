@@ -54,6 +54,12 @@
 			<scope>compile</scope>
 		</dependency>
 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 	</dependencies>
 
 	<build>
@@ -75,6 +81,11 @@
 							<artifactSet>
 								<excludes>
 									<exclude>org.slf4j:slf4j-api</exclude>
+                                    <!-- Guava is optional. A consumer that uses GuavaOptionalConverter supplies Guava itself. -->
+                                    <exclude>com.google.guava:*</exclude>
+                                    <exclude>com.google.errorprone:error_prone_annotations</exclude>
+                                    <exclude>com.google.j2objc:j2objc-annotations</exclude>
+                                    <exclude>org.jspecify:jspecify</exclude>
 								</excludes>
 							</artifactSet>
 							<relocations>
@@ -105,6 +116,25 @@
 					</execution>
 				</executions>
 			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.5.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <orika.depsIncludedJar>${project.build.directory}/${project.build.finalName}-deps-included.jar</orika.depsIncludedJar>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
 
 	        <plugin>
 	          <groupId>org.codehaus.mojo</groupId>
