@@ -3,7 +3,7 @@
   <parent>
     <artifactId>orika-parent</artifactId>
     <groupId>ma.glasnost.orika</groupId>
-    <version>1.5.7</version>
+    <version>1.5.8</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>orika-core</artifactId>
@@ -26,6 +26,10 @@
               <artifactSet>
                 <excludes>
                   <exclude>org.slf4j:slf4j-api</exclude>
+                  <exclude>com.google.guava:*</exclude>
+                  <exclude>com.google.errorprone:error_prone_annotations</exclude>
+                  <exclude>com.google.j2objc:j2objc-annotations</exclude>
+                  <exclude>org.jspecify:jspecify</exclude>
                 </excludes>
               </artifactSet>
               <relocations>
@@ -57,6 +61,23 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.5.4</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <orika.depsIncludedJar>${project.build.directory}/${project.build.finalName}-deps-included.jar</orika.depsIncludedJar>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
         <version>1.16</version>
@@ -84,6 +105,33 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.26</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.7.2-jre</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.14.4</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit-jupiter-api</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-params</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-engine</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>
